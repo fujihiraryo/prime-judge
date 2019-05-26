@@ -55,16 +55,23 @@ def callback():
     return "OK"
 
 
+def prime_judge(N):
+    if N == 1:
+        return "1は素数ではありません。"
+    if N == 57:
+        return "57はグロタンディーク素数です。"
+    for a in range(2, int(N ** 0.5)):
+        if N % a == 0:
+            return str(a) + "で割れるよ。"
+    return "素数です。"
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     user_message = event.message.text
     try:
         N = int(user_message)
-        for a in range(2, int(N ** 0.5) + 1):
-            if N % a == 0:
-                reply_message = str(a) + "で割れるよ"
-                exit()
-        reply_message = "素数です!"
+        reply_message = prime_judge(N)
     except:
         reply_message = "数字を入力してね"
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
