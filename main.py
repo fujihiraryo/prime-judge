@@ -57,9 +57,8 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
-    line_bot_api.reply_message(
-        event.reply_token, TextSendMessage(text=event.message.text * 2)
-    )
+    reply_message = event.message.text * 100
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 
 if __name__ == "__main__":
