@@ -57,7 +57,16 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
-    reply_message = event.message.text * 100
+    user_message = event.message.text
+    try:
+        N = int(user_message)
+        for a in range(2, int(N ** 0.5) + 1):
+            if N % a == 0:
+                reply_message = str(a) + "で割れるよ"
+                exit()
+        reply_message = "素数です!"
+    except:
+        reply_message = "数字を入力してね"
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 
