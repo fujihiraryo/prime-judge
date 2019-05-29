@@ -14,6 +14,7 @@
 
 import os
 import sys
+import random
 from argparse import ArgumentParser
 
 from flask import Flask, request, abort
@@ -60,15 +61,21 @@ def prime_judge(N):
         return "1は素数ではありません。"
     if N == 57:
         return "57はグロタンディーク素数です。"
-    for a in range(2, int(N ** 0.5)+1):
+    for a in range(2, int(N ** 0.5) + 1):
         if N % a == 0:
             return str(a) + "で割れるよ。"
     return "素数です。"
 
 
+def dice():
+    return random.choice(range(5)) + 1
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     user_message = event.message.text
+    if user_message == "さいころ":
+        reply_message = str(dice())
     try:
         N = int(user_message)
         reply_message = prime_judge(N)
