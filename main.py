@@ -74,13 +74,13 @@ def dice():
 @handler.add(MessageEvent, message=TextMessage)
 def message_text(event):
     user_message = event.message.text
-    if user_message == "さいころ":
-        reply_message = str(dice())
     try:
         N = int(user_message)
         reply_message = prime_judge(N)
     except:
         reply_message = "数字を入力してね"
+    if user_message == "さいころ":
+        reply_message = str(dice())
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 
