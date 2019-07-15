@@ -82,7 +82,7 @@ def Miller_Rabin_prime_judge(N):
     return "99.99%素数です。"
 
 def new_prime_judge(N):
-    if len(str(N))<17:
+    if len(str(N))<14:
         return prime_judge(N)
     else:
         return Miller_Rabin_prime_judge(N)
