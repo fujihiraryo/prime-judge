@@ -78,7 +78,7 @@ def Miller_Rabin_prime_judge(N):
     for _ in range(7):
         a=random.choice(range(1,N))
         if pow(a,d,N)!=1 and all([pow(a,d*pow(2,r),N)!=N-1 for r in range(s)]):
-            return prime_judge(N)
+            return "素数ではありません。"
     return "99.99%素数です。"
 
 def new_prime_judge(N):
