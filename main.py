@@ -82,6 +82,8 @@ def Miller_Rabin_prime_judge(N):
     return "99.99%素数です。"
 
 def new_prime_judge(N):
+    if N>2**63-1:
+        return "64ビット整数に収まってないので無理です。"
     if len(str(N))<14:
         return prime_judge(N)
     else:
