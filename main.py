@@ -66,9 +66,26 @@ def prime_judge(N):
             return str(a) + "で割れるよ。"
     return "素数です。"
 
+def Miller_Rabin_prime_judge(N):
+    if N%2==0:
+        return "2で割れるよ。"
+    M=N-1
+    s=0
+    while M%2==0:
+        M=M//2
+        s+=1
+    d=M
+    for _ in range(7):
+        a=random.choice(range(1,N))
+        if pow(a,d,N)!=1 and all([pow(a,d*pow(2,r),N)!=N-1 for r in range(s)]):
+            return prime_judge(N)
+    return "99.99%素数です。"
 
-def dice():
-    return random.choice(range(5)) + 1
+def new_prime_judge(N):
+    if len(str(N))<17:
+        return prime_judge(N)
+    else:
+        return Miller_Rabin_prime_judge(N)
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -76,11 +93,9 @@ def message_text(event):
     user_message = event.message.text
     try:
         N = int(user_message)
-        reply_message = prime_judge(N)
+        reply_message = new_prime_judge(N)
     except:
         reply_message = "数字を入力してね"
-    if user_message == "さいころ":
-        reply_message = str(dice())
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply_message))
 
 
